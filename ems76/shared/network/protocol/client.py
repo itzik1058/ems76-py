@@ -1,5 +1,5 @@
 from enum import Enum
 
 
-class ServerMessage(Enum):
-    pass
+class ClientMessage(Enum):
+    X1F = 0x1F

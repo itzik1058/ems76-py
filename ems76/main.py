@@ -1,5 +1,6 @@
 import signal
-from asyncio import get_event_loop
+import logging
+from asyncio import new_event_loop, set_event_loop
 from ems76.login.server import LoginServer
 
 
@@ -8,7 +9,8 @@ async def run(loop):
 
 
 def main():
-    loop = get_event_loop()
+    loop = new_event_loop()
+    set_event_loop(loop)
     try:
         loop.add_signal_handler(signal.SIGINT, loop.stop)
         loop.add_signal_handler(signal.SIGTERM, loop.stop)
@@ -28,4 +30,9 @@ def main():
 
 
 if __name__ == '__main__':
+    logging.basicConfig(
+        format='%(asctime)s (%(levelname)s) %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        level=logging.DEBUG
+    )
     main()
